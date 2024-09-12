@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 import heapq
 from collections import deque, defaultdict
 import networkx as nx
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hospital.db'
@@ -417,4 +418,5 @@ def find_path():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
